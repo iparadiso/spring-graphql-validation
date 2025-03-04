@@ -1,0 +1,25 @@
+type Book {
+    id: ID!
+    title: String!
+    author: String!
+}
+
+input CreateBookInput {
+    title: String! @Size(min: 5, max: 50)
+    author: String!
+}
+
+type Query {
+    getBooks: [Book!]!
+}
+
+type Mutation {
+    addBook(createBookInput: CreateBookInput!): Book!
+}
+
+type Subscription {
+    subscribeToBooks(authorFilter: String! @Size(min:5, max:50)): Book!
+}
+
+directive @Size(min : Int = 0, max : Int = 2147483647, message : String = "graphql.validation.Size.message")
+on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
